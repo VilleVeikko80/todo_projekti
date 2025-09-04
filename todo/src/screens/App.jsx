@@ -1,14 +1,14 @@
-import "./App.css";
-import Row from "./assets/components/Row";
-
 import { useEffect, useState } from "react";
+import { useUser } from "../context/useUser";
 import axios from "axios";
+import Row from "../components/Row";
 
 const url = "http://localhost:3001";
 
 function App() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
+  const { user } = useUser();
 
   useEffect(() => {
     axios
@@ -22,9 +22,10 @@ function App() {
   }, []);
 
   const addTask = () => {
+    const headers = { headers: { Authorization: user.token } };
     const newTask = { description: task };
     axios
-      .post(url + "/create", { task: newTask })
+      .post(url + "/create", { task: newTask }, headers)
       .then((response) => {
         setTasks([...tasks, response.data]);
         setTask("");
@@ -35,8 +36,10 @@ function App() {
   };
 
   const deleteTask = (deleted) => {
+    const headers = { headers: { Authorization: user.token } };
+    console.log(headers);
     axios
-      .delete(url + "/delete/" + deleted)
+      .delete(url + "/delete/" + deleted, headers)
       .then((response) => {
         setTasks(tasks.filter((item) => item.id !== deleted));
       })
@@ -47,9 +50,11 @@ function App() {
 
   return (
     <div id="container">
-      <h3>Todos</h3>
-      <form>
+      <h3 className="title">Todos</h3>
+
+      <form className="task-form">
         <input
+          className="task-input"
           placeholder="Add new task"
           value={task}
           onChange={(e) => setTask(e.target.value)}
@@ -61,7 +66,8 @@ function App() {
           }}
         />
       </form>
-      <ul>
+
+      <ul className="task-list">
         {tasks.map((item) => (
           <Row item={item} key={item.id} deleteTask={deleteTask} />
         ))}
