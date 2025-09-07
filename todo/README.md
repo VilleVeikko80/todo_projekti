@@ -47,9 +47,3 @@ POST /create → lisää uusi tehtävä
 DELETE /delete/:id → poista tehtävä
 
 Frontend käyttää näitä reittejä Axiosin kautta.
-
-## 🖥️ Frontend kuvia
-
-<img src="/projekti_kuvat/todo_sign_up.png" alt="Sign up" width="278" />
-<img src="/projekti_kuvat/todo_sign_in.png" alt="Sign in" width="300" />
-<img src="/projekti_kuvat/todos_list.png" alt="Sign in" width="368" />
