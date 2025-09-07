@@ -1,9 +1,22 @@
 import { pool } from "../helper/db.js";
 import { auth } from "../helper/auth.js";
 import { Router } from "express";
+import { getTasks } from "../controllers/TaskController.js";
+import { postTask } from "../controllers/TaskController.js";
+import { deleteTaskById } from "../controllers/TaskController.js";
 
 const router = Router();
 
+router.get("/", getTasks);
+
+// Uusi ja legacy molemmat:
+router.post("/", postTask);
+router.post("/create", postTask);
+
+router.delete("/:id", deleteTaskById);
+router.delete("/delete/:id", deleteTaskById); // legacy DELETE
+
+/*
 router.get("/", (req, res, next) => {
   pool.query("SELECT * FROM task", (err, result) => {
     if (err) {
@@ -12,7 +25,9 @@ router.get("/", (req, res, next) => {
     res.status(200).json(result.rows || []);
   });
 });
+*/
 
+/*
 // SUOJATTU: vaatii Authorization-headerin (pelkkä token riittää)
 router.post("/create", auth, (req, res, next) => {
   const { task } = req.body;
@@ -32,7 +47,9 @@ router.post("/create", auth, (req, res, next) => {
     }
   );
 });
+*/
 
+/*
 // SUOJATTU: vaatii Authorization-headerin
 router.delete("/delete/:id", (req, res) => {
   const { id } = req.params;
@@ -48,5 +65,5 @@ router.delete("/delete/:id", (req, res) => {
     return res.status(200).json({ id: id });
   });
 });
-
+*/
 export default router;
