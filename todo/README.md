@@ -1,12 +1,55 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Todo App (Fullstack-harjoitus)
 
-Currently, two official plugins are available:
+Yksinkertainen harjoitusprojekti, jossa on **Node.js + Express** backend ja **React** frontend.  
+Sovellus mahdollistaa käyttäjän rekisteröitymisen ja kirjautumisen sekä tehtävien lisäämisen ja poistamisen.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔧 Teknologiat
 
-## Expanding the ESLint configuration
+- Backend: Node.js, Express, PostgreSQL, bcrypt, JWT
+- Frontend: React, Vite, React Router, Axios
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📂 Rakenne
+
+project/
+
+- server/ # Backend (Express + PostgreSQL)
+- client/ # Frontend (React + Vite)
+
+## 🗄️ Tietokanta
+
+CREATE TABLE account (
+id SERIAL PRIMARY KEY,
+email TEXT UNIQUE NOT NULL,
+password TEXT NOT NULL
+);
+
+CREATE TABLE task (
+id SERIAL PRIMARY KEY,
+description TEXT NOT NULL
+);
+
+## 🔑 Toiminnallisuus
+
+Rekisteröityminen / kirjautuminen
+
+POST /user/signup
+
+POST /user/signin (palauttaa JWT-tokenin)
+
+Tehtävät (Todos)
+
+GET / → listaa tehtävät
+
+POST /create → lisää uusi tehtävä
+
+DELETE /delete/:id → poista tehtävä
+
+Frontend käyttää näitä reittejä Axiosin kautta.
+
+## 🖥️ Frontend kuvia
+
+<img src="./projekti_kuvat/todo_sign_up.png" alt="Sign up" width="278" />
+<img src="./projekti_kuvat/todo_sign_in.png" alt="Sign in" width="300" />
+<img src="./projekti_kuvat/todos_list.png" alt="Sign in" width="368" />
